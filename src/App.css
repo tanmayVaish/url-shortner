@@ -6,22 +6,10 @@
 
 .app {
   background: url('../utils/shattered-island.gif');
-  height: 100vh;
-  width: 100vw;
   display: grid;
   place-content: center;
+  height: 100vh;
+  width: 100vw;
 }
 
-.container {
-  display: flex;
-  align-items: center;
-}
 
-.startTitle {
-  color: aliceblue;
-  margin-right: 2vmin;
-}
-.endTitle {
-  color: aliceblue;
-  margin-left: 2vmin;
-}
