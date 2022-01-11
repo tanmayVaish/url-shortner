@@ -13,8 +13,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   urls.init(
     {
-      short_url: DataTypes.STRING,
       long_url: DataTypes.STRING,
+      short:DataTypes.STRING,
+      clicks: DataTypes.INTEGER
     },
     {
       sequelize,

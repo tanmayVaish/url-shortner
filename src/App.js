@@ -1,20 +1,49 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [url, setUrl] = useState(null);
+
+  const shortenUrl = (e) => {
+    e.preventDefault();
+    fetch('/shorten', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({url:url}),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
   return (
     <div className="app">
       <div className={'w-fit flex items-end'}>
-        <div className={'startTitle p-0 text-8xl text-white'}>Does Size Matter?</div>
-        <form action={''} method={'POST'} className={'input w-full max-w-sm'}>
+        <div className={'startTitle p-0 text-8xl text-white'}>
+          Does Size Matter?
+        </div>
+        <form
+          className={'input w-full max-w-sm'}
+          onSubmit={shortenUrl}
+        >
           <div className={'flex items-center border-b border-white py-3'}>
             <input
               className={
-                'appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
+                'col appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
               }
               required={true}
               type={'text'}
               placeholder={'Insert Your URL Here!'}
               aria-label={'Full name'}
+              onChange={(e) => {
+                setUrl(e.target.value);
+              }}
             />
             <button
               className={
@@ -37,7 +66,7 @@ function App() {
         <div className={'endTitle text-white text-8xl'}>and Find Out!</div>
       </div>
       <div className="tableContainer">
-        <table class="min-w-full divide-y divide-white mt-4">
+        <table className="min-w-full divide-y divide-white mt-4">
           <thead className={'bg-gray-500'}>
             <tr>
               <th
@@ -74,9 +103,7 @@ function App() {
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-900">
-                  urlshorten.xyz
-                </div>
+                <div className="text-sm text-gray-900">urlshorten.xyz</div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

@@ -8,11 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      short_url: {
-        type: Sequelize.STRING,
-      },
       long_url: {
         type: Sequelize.STRING,
+      },
+      short: {
+        type: Sequelize.STRING,
+      },
+      clicks: {
+       type: Sequelize.INTEGER, 
       },
       createdAt: {
         allowNull: false,

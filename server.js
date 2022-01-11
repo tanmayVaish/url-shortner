@@ -4,32 +4,36 @@ const valid = require('valid-url');
 const shortid = require('shortid');
 
 const app = express();
-app.use(express.urlencoded());
 
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+
 
 app.get('/', (req, res) => {
   res.send('FUCK');
 });
 
 app.post('/shorten', async (req, res) => {
-  const { long_url, short } = req.body;
-  console.log(long_url);
-  if (!valid.isUri(long_url)) {
+  console.log(JSON.stringify(req.body));
+  const { url, short } = req.body;
+  console.log(url)
+  // res.send(req.body);
+  
+  if (!valid.isUri(url)) {
     res.send({
       status: 'failure',
-      message: 'Url not Valid!',
-    });
+      message: 'code fat gya!'
+    })
     return;
   }
+  // TODO: check if already URL exist 
 
-  let short_url = shortid.generate();
+  let short_url = (short) ? short : shortid.generate();
 
   const temp = await Urls.create({
-    long_url: long_url,
-    short_url: short_url,
+    long_url: url,
+    short: short_url,
   });
 
   if (temp) {
@@ -39,11 +43,22 @@ app.post('/shorten', async (req, res) => {
     });
     return;
   }
-
   res.send({
-    status: 'failure',
-    message: 'Tera Kat Gya',
+    status: 'failed',
+    message: 'Something Went Wrong!'
   });
-});
+
+ });
+app.use('/:id', (req, res) => {
+  res.send({
+    status: 'kuch bhi',
+    message: 'kuch bhi thoda jyada'
+  })
+  
+  // TODO:
+  // 1. Fetch URL using ID from DB.
+  // 2. Redirect to the fetched URL.
+
+})
 
 app.listen(PORT, () => console.log(`Server listening at ${PORT}`));
