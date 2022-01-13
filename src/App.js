@@ -6,26 +6,26 @@ function App() {
   const [data, setData] = useState(null);
 
   const getData = async () => {
-    const data = await fetch(('/data', {
+    const data = await fetch('/data', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       }
-    })).then(res => res.json());
+    }).then(res => res.json());
     setData(data);
   }
 
-  const shortenUrl = (e) => {
+  const shortenUrl = async (e) => {
     e.preventDefault();
-    fetch('/shorten', {
+    await fetch('/shorten', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ url: url }),
+      body: JSON.stringify({ url: url })
     })
       .then((response) => {
-        response.text()
+        response.json();
       })
       .then((data) => {
         console.log('Success:', data);
@@ -33,9 +33,11 @@ function App() {
       .catch((error) => {
         console.error('Error:', error);
       });
+      getData();
   };
 
 
+  console.log(data);
   return (
     <div className="app">
       <div className={'w-fit flex items-end'}>

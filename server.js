@@ -11,20 +11,14 @@ const PORT = process.env.PORT || 5000;
 app.use(express.static('build'));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  // res.render('index');
-});
-
 app.get('/data', async (req, res)=>{
   const temp = await Urls.findAll();
-  console.log(temp);
-  return res.json({
-    temp
-  })
+  return res.json(temp);
 })
 
 app.post('/shorten', async (req, res) => {
   const { url, short } = req.body;
+  console.log(url)
   // validatinng URL
   if (!valid.isUri(url)) {
     res.send({
@@ -65,7 +59,7 @@ app.post('/shorten', async (req, res) => {
 });
 
 
-app.get('/:id', async (req, res) => {
+app.get('/s/:id', async (req, res) => {
   
   const { id } = req.params;
   // find long_url with short_url equal to id
