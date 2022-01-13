@@ -8,34 +8,40 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-
+app.use(express.static('build'));
 
 app.get('/', (req, res) => {
-  res.send('FUCK');
+  res.send('404');
 });
 
 app.post('/shorten', async (req, res) => {
-  console.log(JSON.stringify(req.body));
   const { url, short } = req.body;
-  console.log(url)
-  // res.send(req.body);
-  
+  // validatinng URL
   if (!valid.isUri(url)) {
     res.send({
       status: 'failure',
-      message: 'code fat gya!'
-    })
+      message: 'code fat gya!',
+    });
     return;
   }
-  // TODO: check if already URL exist 
 
-  let short_url = (short) ? short : shortid.generate();
-
+  // checking if URL with its short version exists
+  const check = await Urls.findOne({
+    where:{long_url: url}
+  })
+  if(check) {
+    return res.status(200).json({
+      status:'failure',
+      message: 'Url already exist'
+    });
+  }
+  
+  // creating short url
+  let short_url = short ? short : shortid.generate();
   const temp = await Urls.create({
     long_url: url,
     short: short_url,
   });
-
   if (temp) {
     res.send({
       status: 'success',
@@ -45,20 +51,25 @@ app.post('/shorten', async (req, res) => {
   }
   res.send({
     status: 'failed',
-    message: 'Something Went Wrong!'
+    message: 'Something Went Wrong!',
   });
+});
 
- });
-app.use('/:id', (req, res) => {
-  res.send({
-    status: 'kuch bhi',
-    message: 'kuch bhi thoda jyada'
-  })
+
+app.use('/:id', async (req, res) => {
   
-  // TODO:
-  // 1. Fetch URL using ID from DB.
-  // 2. Redirect to the fetched URL.
+  const { id } = req.params;
+  // find long_url with short_url equal to id
+  const temp = await Urls.findOne({
+    where: {
+      short: id,
+    },
+  })
 
-})
+  if(!temp) return;
+  res.redirect(temp.long_url);
+
+  // TODO: how many times the short url has been clicked
+});
 
 app.listen(PORT, () => console.log(`Server listening at ${PORT}`));

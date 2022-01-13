@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
+    "dev-client": "react-scripts start",
+    "start": "node server.js",
+    "build": "react-scripts build",
     "dev": "nodemon server.js",
     "pretty": "prettier --write *"
   },

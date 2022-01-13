@@ -13,7 +13,9 @@ function App() {
       },
       body: JSON.stringify({url:url}),
     })
-      .then((response) => response.text())
+      .then((response) => {
+        response.text()
+      })
       .then((data) => {
         console.log('Success:', data);
       })
@@ -21,6 +23,7 @@ function App() {
         console.error('Error:', error);
       });
   };
+
 
   return (
     <div className="app">
@@ -97,7 +100,7 @@ function App() {
                 <div className="flex items-center">
                   <div className="ml-4">
                     <div className="text-sm font-medium text-gray-900">
-                      https://github.com/tanmayVaish/url-shortner
+                      
                     </div>
                   </div>
                 </div>
