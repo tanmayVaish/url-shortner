@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
@@ -14,6 +14,11 @@ function App() {
     }).then(res => res.json());
     setData(data);
   }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
 
   const shortenUrl = async (e) => {
     e.preventDefault();
@@ -37,7 +42,7 @@ function App() {
   };
 
 
-  console.log(data);
+
   return (
     <div className="app">
       <div className={'w-fit flex items-end'}>
@@ -108,7 +113,7 @@ function App() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {data && data.map((item) => {
+            {data && data.map((item) => (
               <tr>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
@@ -120,9 +125,9 @@ function App() {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">
-                    {item.short_url}
-                  </div>
+                  <a href={`http://localhost:3000/s/` + item.short} target={'_blank'} className="text-sm text-gray-900">
+                    {`localhost:3000/`+ item.short}
+                  </a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -130,7 +135,7 @@ function App() {
                   </span>
                 </td>
               </tr>
-            })}
+            ))}
           </tbody>
         </table>
       </div>

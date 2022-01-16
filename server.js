@@ -18,7 +18,6 @@ app.get('/data', async (req, res)=>{
 
 app.post('/shorten', async (req, res) => {
   const { url, short } = req.body;
-  console.log(url)
   // validatinng URL
   if (!valid.isUri(url)) {
     res.send({
@@ -44,6 +43,7 @@ app.post('/shorten', async (req, res) => {
   const temp = await Urls.create({
     long_url: url,
     short: short_url,
+    clicks: 0
   });
   if (temp) {
     res.send({
@@ -68,8 +68,15 @@ app.get('/s/:id', async (req, res) => {
       short: id,
     },
   })
-
   if(!temp) return;
+  // increment clicks
+  await Urls.update({
+    clicks: temp.clicks + 1
+  }, {
+    where: {
+      short: id,
+    },
+  })
   res.redirect(temp.long_url);
 
   // TODO: how many times the short url has been clicked
