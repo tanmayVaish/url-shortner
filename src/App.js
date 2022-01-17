@@ -125,7 +125,7 @@ function App() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <a href={`/s/` + item.short} target={'_blank'} className="text-sm text-gray-900">
-                    {`shawty.ml/s/`+ item.short}
+                    {`urltiny.ml/s/`+ item.short}
                   </a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
