@@ -17,8 +17,7 @@ function App() {
 
   useEffect(() => {
     getData();
-  }, []);
-
+  });
 
   const shortenUrl = async (e) => {
     e.preventDefault();
