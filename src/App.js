@@ -125,8 +125,8 @@ function App() {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <a href={`http://localhost:3000/s/` + item.short} target={'_blank'} className="text-sm text-gray-900">
-                    {`localhost:3000/`+ item.short}
+                  <a href={`/s/` + item.short} target={'_blank'} className="text-sm text-gray-900">
+                    {`https://urishorty.ml/`+ item.short}
                   </a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
