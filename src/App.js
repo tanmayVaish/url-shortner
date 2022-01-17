@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   const [url, setUrl] = useState(null);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
 
   const getData = async () => {
     const data = await fetch('/data', {
