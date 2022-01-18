@@ -11,10 +11,13 @@ const PORT = process.env.PORT || 5000;
 app.use(express.static('build'));
 app.use(express.json());
 
+
+
 app.get('/data', async (req, res)=>{
   const temp = await Urls.findAll();
   return res.json(temp);
 })
+
 
 app.post('/shorten', async (req, res) => {
   const { url, short } = req.body;
