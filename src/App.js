@@ -4,7 +4,8 @@ import './App.css';
 function App() {
   const [url, setUrl] = useState(null);
   const [data, setData] = useState();
-  
+  const [short, setShort] = useState(null);
+
   const getData = async () => {
     const data = await fetch('/data', {
       method: 'GET',
@@ -19,7 +20,6 @@ function App() {
     getData();
   }, []);
 
-
   const shortenUrl = async (e) => {
     e.preventDefault();
     await fetch('/shorten', {
@@ -27,7 +27,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ url: url })
+      body: JSON.stringify({ url: url , short: short })
     })
       .then((response) => {
         response.json();
@@ -40,8 +40,6 @@ function App() {
       });
     getData();
   };
-
-
 
   return (
     <div className="app">
@@ -59,7 +57,7 @@ function App() {
               required={true}
               type={'text'}
               placeholder={'Insert Your URL Here!'}
-              aria-label={'Full name'}
+              aria-label={'Long Url'}
               onChange={(e) => {
                 setUrl(e.target.value);
               }}
@@ -70,10 +68,10 @@ function App() {
               }
               required={true}
               type={'text'}
-              placeholder={'Insert Your URL Here!'}
-              aria-label={'Full name'}
+              placeholder={'Insert Custom URL Here!'}
+              aria-label={'Short Url'}
               onChange={(e) => {
-                setUrl(e.target.value);
+                setShort(e.target.value);
               }}
             />
             <button

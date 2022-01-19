@@ -21,7 +21,7 @@ app.get('/data', async (req, res)=>{
 
 app.post('/shorten', async (req, res) => {
   const { url, short } = req.body;
-  // validatinng URL
+  // validating URL
   if (!valid.isUri(url)) {
     res.send({
       status: 'failure',
