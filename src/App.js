@@ -16,10 +16,6 @@ function App() {
     setData(data);
   }
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   const shortenUrl = async (e) => {
     e.preventDefault();
     await fetch('/shorten', {
@@ -27,7 +23,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ url: url , short: short })
+      body: JSON.stringify({ url: url, short: short })
     })
       .then((response) => {
         response.json();
@@ -41,6 +37,12 @@ function App() {
     getData();
   };
 
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(url, short);
+
   return (
     <div className="app">
       <h1 className={'text-7xl font-bold text-center text-white mb-10 title'}>Url Shortner</h1>
@@ -49,10 +51,10 @@ function App() {
           className={'flex w-screen items-center justify-center'}
           onSubmit={shortenUrl}
         >
-          <div className={'flex items-center justify-center w-max border-b border-white py-3'}>
+          <div className={'flex items-center justify-center w-max border-b-2 border-green-500 py-3'}>
             <input
               className={
-                'col appearance-none border-r-2 bg-transparent w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
+                'col appearance-none border-l-2 border-green-500 bg-transparent w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
               }
               required={true}
               type={'text'}
@@ -61,10 +63,11 @@ function App() {
               onChange={(e) => {
                 setUrl(e.target.value);
               }}
+              value={url}
             />
             <input
               className={
-                'appearance-none bg-transparent border-none w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
+                'appearance-none border-l-2 border-green-500 bg-transparent w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
               }
               required={true}
               type={'text'}
@@ -73,6 +76,7 @@ function App() {
               onChange={(e) => {
                 setShort(e.target.value);
               }}
+              value={short}
             />
             <button
               className={
@@ -87,6 +91,10 @@ function App() {
                 'flex-shrink-0 border-transparent border-4 text-white hover:text-pri-800 text-sm py-1 px-2 rounded'
               }
               type={'button'}
+              onClick={() => {
+                setUrl("");
+                setShort("");
+              }}
             >
               Cancel
             </button>
@@ -133,7 +141,7 @@ function App() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <a href={`http://localhost:3000/s/` + item.short} target={'_blank'} className="text-sm text-gray-900">
-                    {`localhost:3000/` + item.short}
+                    {`localhost:3000/s/` + item.short}
                   </a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
