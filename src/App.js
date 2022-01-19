@@ -3,7 +3,8 @@ import './App.css';
 
 function App() {
   const [url, setUrl] = useState(null);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
+  const [short, setShort] = useState(null);
 
   const getData = async () => {
     const data = await fetch('/data', {
@@ -15,10 +16,6 @@ function App() {
     setData(data);
   }
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   const shortenUrl = async (e) => {
     e.preventDefault();
     await fetch('/shorten', {
@@ -26,7 +23,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ url: url })
+      body: JSON.stringify({ url: url, short: short })
     })
       .then((response) => {
         response.json();
@@ -37,33 +34,49 @@ function App() {
       .catch((error) => {
         console.error('Error:', error);
       });
-      getData();
+    getData();
   };
 
+  useEffect(() => {
+    getData();
+  }, []);
 
+  console.log(url, short);
 
   return (
     <div className="app">
-      <div className={'w-fit flex items-end'}>
-        <div className={'startTitle p-0 text-8xl text-white'}>
-          Does Size Matter?
-        </div>
+      <h1 className={'text-7xl font-bold text-center text-white mb-10 title'}>Url Shortner</h1>
+      <div>
         <form
-          className={'input w-full max-w-sm'}
+          className={'flex w-screen items-center justify-center'}
           onSubmit={shortenUrl}
         >
-          <div className={'flex items-center border-b border-white py-3'}>
+          <div className={'flex items-center justify-center w-max border-b-2 border-green-500 py-3'}>
             <input
               className={
-                'col appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
+                'col appearance-none border-l-2 border-green-500 bg-transparent w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
               }
               required={true}
               type={'text'}
               placeholder={'Insert Your URL Here!'}
-              aria-label={'Full name'}
+              aria-label={'Long Url'}
               onChange={(e) => {
                 setUrl(e.target.value);
               }}
+              value={url}
+            />
+            <input
+              className={
+                'appearance-none border-l-2 border-green-500 bg-transparent w-fit text-white mr-3 py-1 px-2 leading-tight focus:outline-none text-1xl'
+              }
+              required={true}
+              type={'text'}
+              placeholder={'Insert Custom URL Here!'}
+              aria-label={'Short Url'}
+              onChange={(e) => {
+                setShort(e.target.value);
+              }}
+              value={short}
             />
             <button
               className={
@@ -78,15 +91,18 @@ function App() {
                 'flex-shrink-0 border-transparent border-4 text-white hover:text-pri-800 text-sm py-1 px-2 rounded'
               }
               type={'button'}
+              onClick={() => {
+                setUrl("");
+                setShort("");
+              }}
             >
               Cancel
             </button>
           </div>
         </form>
-        <div className={'endTitle text-white text-8xl'}>and Find Out!</div>
       </div>
-      <div className="tableContainer">
-        <table className="min-w-full divide-y divide-white mt-4">
+      <div className="tableContainer w-screen flex justify-center items-center">
+        <table className="divide-y divide-white mt-4 w-5/6">
           <thead className={'bg-gray-500'}>
             <tr>
               <th

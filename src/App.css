@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -10,4 +12,11 @@
   place-content: center;
   height: 100vh;
   width: 100vw;
+}
+
+.title {
+  font-family: 'Amatic SC', cursive;
+  font-size: 3rem;
+  color: #fff;
+  text-align: center;
 }
