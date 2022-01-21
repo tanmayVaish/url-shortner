@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+
+.shortner {
+    background: url('../utils/shattered-island.gif');
+    @apply grid place-content-center h-screen w-screen;
+  }
+  
+  .title {
+    font-family: 'Amatic SC', cursive;
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+  }

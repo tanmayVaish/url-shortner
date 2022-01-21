@@ -1,0 +1,46 @@
+.boxes{
+    @apply flex-1;
+}
+
+.box-2{
+    @apply flex flex-col justify-center items-center rounded-xl;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.box-2-title{
+    @apply w-full flex flex-col;
+}
+
+.box-2-title{
+    @apply p-3;
+}
+
+.box-2-title div:first-child{
+    @apply font-semibold text-2xl;
+}
+
+.box-2-title div:last-child{
+    @apply font-light;
+}
+
+.form{
+    @apply flex flex-col w-full;
+}
+
+.inputBorder{
+    @apply border-2 border-gray-200 rounded-2xl m-2;
+}
+
+.inputBorder input{
+    @apply border-none outline-none overflow-hidden p-1 m-1;
+}
+
+.signupBtn{
+    @apply bg-blue-500 text-white rounded-2xl p-2 m-2 text-center;
+}
+
+.forgetPassword{
+    @apply px-3 text-sm text-blue-500;
+}
