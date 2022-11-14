@@ -71,7 +71,7 @@ function App() {
               }
               required={true}
               type={'text'}
-              placeholder={'Insert Custom URL Here!'}
+              placeholder={'Insert Custom ID Here!'}
               aria-label={'Short Url'}
               onChange={(e) => {
                 setShort(e.target.value);
